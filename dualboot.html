@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>iOS 7 on iPod Touch 4g</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<h1>Dual booting method</h1>
+</div>
+
+<div class="container">
+	<div class="well">
+		<p><span class="text-primary"><b></span></b>This way iOS 7 will be installed as a secondary os and can be booted without a computer.</p>
+		<p><span class="text-primary"><b></span></b>Also, I will provide pre-patched files so don't worry about it being hard.</p>
+	</div>
+</div>
+
+<div class="container">
+	<div class="well">
+		<h1>Requirements</h1>
+		<p><span class="text-primary"><b></span></b>A computer running macOS or Windows</p>
+		<p><span class="text-primary"><b></span></b>Jailbroken iPod Touch 4g on iOS 5 or 6 (6.1.6 is the best option) </p>
+		<p><span class="text-primary"><b></span></b>Add "nyansatan.github.io/apt" source to cydia and install dualbootstuff, diskdev-cdms , nano, way out and openssh</p>
+		<p><span class="text-primary"><b></span></b>iPhone3,1 7.1.2 ipsw </p>
+		<p><span class="text-primary"><b></span></b>7zip (or winrar) and dmg </p>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Preparing firmware</h1>
+		<p><span class="text-primary"><b></span></b>Open the iPhone3,1_7.1.2_11D57_Restore.ipsw file with 7zip and extract 058-4520-010.dmg file </p>
+		<p><span class="text-primary"><b></span></b>Now open cmd (if on windows) or terminal (if on mac) and decrypt rootfs file : </p>
+		<p><span class="text-primary"><b></span></b>dmg extract 058-4520-010.dmg decrypted.dmg -k 38d0320d099b9dd34ffb3308c53d397f14955b347d6a433fe173acc2ced1ae78756b3684</p>
+		<p><span class="text-primary"><b></span></b>Then convert the decrypted rootfs to UDZO format: </p>
+		<p><span class="text-primary"><b></span></b>dmg build decrypted.dmg UDZO.dmg</p>
+	</div>
+</div>		
+	
+<div class="container">
+	<div class="well">
+		<h1>Partitioning</h1>
+		<p><span class="text-primary"><b></span></b>SSH as root to your iPod:</p>
+		<p><span class="text-primary"><b></span></b>ssh root@device_ip</p>
+		<p><span class="text-primary"><b></span></b>Default password is alpine, and you won't see any character while you type it</p>
+		<p><span class="text-primary"><b></span></b>Windows users can use programs like Putty to ssh into iPod</p>
+		<p><span class="text-primary"><b></span></b>Device ip can be found in settings by going to wifi - select your network and tap the little "i" on the right, then check for "ip address"</p>
+		<p><span class="text-primary"><b></span></b>Check for free space:</p>
+		<p><span class="text-primary"><b></span></b>df -B1</p>
+		<p><span class="text-primary"><b></span></b>Now take the 1B-blocks value of /dev/disk0s1s2 and substract the value (in bytes) of the space you want to give to iOS 7 </p>
+		<p><span class="text-primary"><b></span></b>Obviously, size of second OS mustn't be greater than available space on Data volume</p>
+		<p><span class="text-primary"><b></span></b>For example, if current 1B-blocks value is 17179869184, and you want to give iOS 7 4GB: 17179869184 - 4294967296 = 12884901888</p>
+		<p><span class="text-primary"><b></span></b>So, resize data partition:</p>
+		<p><span class="text-primary"><b></span></b>hfs_resize /private/var new value    (Replace new value with the value you calculated before.)</p>
+		<p><span class="text-primary"><b></span></b>It may take a while on some devices, don't worry.</p>
+		<p><span class="text-primary"><b></span></b>Now we need to edit the gpt table: (execute commands in the same order I placed them)</p>
+		<p><span class="text-primary"><b></span></b>gptfdisk /dev/rdisk0s1</p>
+		<p><span class="text-primary"><b></span></b>p</p>
+		<p><span class="text-primary"><b></span></b>i</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>Write down somewhere value of partition unique GUID and attribute flags, it's important, then continue:</p>
+		<p><span class="text-primary"><b></span></b>d</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>n</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>Leave default first sector</p>
+		<p><span class="text-primary"><b></span></b>Then calculate last sector with this formula: the value you passed in hfs_resize : 8192 + default first sector value </p>
+		<p><span class="text-primary"><b></span></b>Leave default code</p>
+		<p><span class="text-primary"><b></span></b>Then continue:</p>
+		<p><span class="text-primary"><b></span></b>c</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>Data</p>
+		<p><span class="text-primary"><b></span></b>x</p>
+		<p><span class="text-primary"><b></span></b>a</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>Now if attribute flags were 0003000000000000:</p>
+		<p><span class="text-primary"><b></span></b>48</p>
+		<p><span class="text-primary"><b></span></b>49</p>
+		<p><span class="text-primary"><b></span></b>If attribute flags were 0001000000000000:</p>
+		<p><span class="text-primary"><b></span></b>48</p>
+		<p><span class="text-primary"><b></span></b>Then continue:</p>
+		<p><span class="text-primary"><b></span></b>c</p>
+		<p><span class="text-primary"><b></span></b>2</p>
+		<p><span class="text-primary"><b></span></b>Write down the unique GUID value you saved before </p>
+		<p><span class="text-primary"><b></span></b>Then continue:</p>
+		<p><span class="text-primary"><b></span></b>m</p>
+		<p><span class="text-primary"><b></span></b>n</p>
+		<p><span class="text-primary"><b></span></b>3</p>
+		<p><span class="text-primary"><b></span></b>Leave default first sector</p>
+		<p><span class="text-primary"><b></span></b>Then calculate last sector with this formula: mount the udzo dmg image created in previous part and obtain the value of size and then:  the value : 8192 + default first sector value </p>
+		<p><span class="text-primary"><b></span></b>Leave default code</p>
+		<p><span class="text-primary"><b></span></b>Then continue:</p>
+		<p><span class="text-primary"><b></span></b>c</p>
+		<p><span class="text-primary"><b></span></b>3</p>
+		<p><span class="text-primary"><b></span></b>iOS7SYSTEM</p>
+		<p><span class="text-primary"><b></span></b>Important: NEVER use "System" as name there</p>
+		<p><span class="text-primary"><b></span></b>n</p>
+		<p><span class="text-primary"><b></span></b>4</p>
+		<p><span class="text-primary"><b></span></b>Leave default first sector</p>
+		<p><span class="text-primary"><b></span></b>Then calculate last sector with this formula: default value - 5</p>
+		<p><span class="text-primary"><b></span></b>Leave default code</p>
+		<p><span class="text-primary"><b></span></b>Then continue:</p>
+		<p><span class="text-primary"><b></span></b>c</p>
+		<p><span class="text-primary"><b></span></b>4</p>
+		<p><span class="text-primary"><b></span></b>iOS7DATA</p>
+		<p><span class="text-primary"><b></span></b>Important: NEVER use "System" as name there</p>
+		<p><span class="text-primary"><b></span></b>Make sure you did everything correctly:</p>
+		<p><span class="text-primary"><b></span></b>p</p>
+		<p><span class="text-primary"><b></span></b>Check everything and then:</p>
+		<p><span class="text-primary"><b></span></b>w</p>
+		<p><span class="text-primary"><b></span></b>Y</p>
+		<p><span class="text-primary"><b></span></b>Done! If your device is still alive,</p>
+		<p><span class="text-primary"><b></span></b>execute sync a few times</p>
+	</div>
+</div>		
+
+
+
+
+<div class="container">
+	<div class="well">
+		<h1>Restoring rootfs</h1>
+		<p><span class="text-primary"><b></span></b>Create filesystems:</p>
+		<p><span class="text-primary"><b></span></b>/sbin/newfs_hfs -s -v System -J -b 8192 -n a=8192,c=8192,e=8192 /dev/disk0s1s3</p>
+		<p><span class="text-primary"><b></span></b>/sbin/newfs_hfs -s -v Data -J -b 8192 -n a=8192,c=8192,e=8192 /dev/disk0s1s4</p>
+		<p><span class="text-primary"><b></span></b>Mount second os data partition:</p>
+		<p><span class="text-primary"><b></span></b>mount_hfs /dev/disk0s1s4 /mnt2</p>
+		<p><span class="text-primary"><b></span></b>Now send UDZO rootfs dmg file to /mnt2 using afc2 or scp</p>
+		<p><span class="text-primary"><b></span></b>Then:</p>
+		<p><span class="text-primary"><b></span></b>asr restore --source /mnt2/UDZO.dmg --target /dev/disk0s1s3 --erase</p>
+		<p><span class="text-primary"><b></span></b>Done</p>
+	</div>
+</div>		
+	
+<div class="container">
+	<div class="well">
+		<h1>Modifying filesystems</h1>
+		<p><span class="text-primary"><b></span></b>Execute these commands:</p>
+		<p><span class="text-primary"><b></span></b>umount /mnt2</p>
+		<p><span class="text-primary"><b></span></b>mount_hfs /dev/disk0s1s3 /mnt1   (after that an alert may appear on device screen, ignore it)</p>
+		<p><span class="text-primary"><b></span></b>/sbin/newfs_hfs -s -v Data -J -P -b 8192 -n a=8192,c=8192,e=8192 /dev/disk0s1s4</p>
+		<p><span class="text-primary"><b></span></b>mount_hfs /dev/disk0s1s4 /mnt2</p>
+		<p><span class="text-primary"><b></span></b>mv -v /mnt1/private/var/* /mnt2</p>
+		<p><span class="text-primary"><b></span></b>rm -rf /mnt2/mobile/Library/PreinstalledAssets/*</p>
+		<p><span class="text-primary"><b></span></b>rm -rf /mnt2/mobile/Library/Preferences/.GlobalPreferences.plist </p>
+        <p><span class="text-primary"><b></span></b>mkdir /mnt2/keybags</p>
+		<p><span class="text-primary"><b></span></b>cp -a /var/keybags/systembag.kb /mnt2/keybags</p>
+		<p><span class="text-primary"><b></span></b>umount /mnt2</p>
+		<p><span class="text-primary"><b></span></b>Now edit fstab:</p>
+		<p><span class="text-primary"><b></span></b>nano /mnt1/private/etc/fstab</p>
+		<h1> <href="https://nyansatan.github.io/dualboot/resources/fstab.png">Turn this</h1>
+		<h1> <href="https://nyansatan.github.io/dualboot/resources/fstab_p.png">Into this</h1>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Adding fixes and bootchain</h1>
+		<p><span class="text-primary"><b></span></b>Extract wifi.zip</p>
+		<p><span class="text-primary"><b></span></b>Copy the wifi folder to /mnt1/usr/share/firmware , replacing the existing one</p>
+		<p><span class="text-primary"><b></span></b>Go to /mnt1/Applications and delete or rename Setup.app</p>
+		<p><span class="text-primary"><b></span></b>/sbin/newfs_hfs -s -v Data -J -P -b 8192 -n a=8192,c=8192,e=8192 /dev/disk0s1s4</p>
+		<p><span class="text-primary"><b></span></b>Extract bootchain.zip </p>
+		<p><span class="text-primary"><b></span></b>Copy all files in /mnt1</p>
+		<p><span class="text-primary"><b></span></b>Extract bootloader.zip</p>
+		<p><span class="text-primary"><b></span></b>Copy files in /</p>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Booting</h1>
+		<p><span class="text-primary"><b></span></b>Open Way Out</p>
+		<p><span class="text-primary"><b></span></b>Open settings menu</p>
+		<p><span class="text-primary"><b></span></b>Set /iBSS as first image</p>
+		<p><span class="text-primary"><b></span></b>and /iBEC7 as second image</p>
+		<p><span class="text-primary"><b></span></b>go back</p>
+		<p><span class="text-primary"><b></span></b>Slide to boot</p>
+		<p><span class="text-primary"><b></span></b>Wait about 6-7 seconds and press home or power button</p>
+		<p><span class="text-primary"><b></span></b>Done! You can now enjoy verbose boot and iOS 7 on your iPod Touch 4g!</p>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Jailbreaking</h1>
+		<p><span class="text-primary"><b></span></b>At the moment jailbreaking iOS 7 on iPod Touch 4g is really unstable</p>
+		<p><span class="text-primary"><b></span></b>I won't provide instructions for now, sorry.</p>
+	</div>
+</div>	
+	
+	
+<div class="container">
+	<div class="well">
+		<h1>Thanks to</h1>
+		<p><span class="text-primary"><b></span></b>@nyan_satan for the dualboot guide</p>
+		<p><span class="text-primary"><b></span></b>@Ralph0045, without him all this probably wouldn't have existed</p>
+		<p><span class="text-primary"><b></span></b>Me (@albyvar25) for the wifi fix </p>
+		<p><span class="text-primary"><b></span></b>Everyone else who contributed.</p>
+	</div>
+</div>	
+	
+</body>
+</html>
