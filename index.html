@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>iOS 7 on iPod Touch 4g</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<h1>iOS 7 on iPod Touch 4g</h1>
+</div>
+
+<div class="container">
+	<div class="well">
+		<p><span class="text-primary"><b></span></b>Supporting the unsupported</p>
+		
+	</div>
+</div>
+
+<div class="container">
+	<div class="well">
+		<h1>What is this?</h1>
+		<p><span class="text-primary"><b></span></b>This project brings iOS 7.x to the Apple iPod Touch 4th generation. This device's latest official firmware is 6.1.6 , released by Apple in 2014.</p>
+		<p><span class="text-primary"><b></span></b>The iPod Touch 4g is similar to the iPhone 4, except for some components and ram.</p>
+		<p><span class="text-primary"><b></span></b>While the iPod Touch 4g got 256MB ram, the iPhone 4 got 512MB RAM.</p>
+		<p><span class="text-primary"><b></span></b>That is most likely the reason why Apple decided to not give this device the iOS 7 update.</p>
+		<p><span class="text-primary"><b></span></b>This decision made people, back in the days, a lot angry, because they couldn't run the "biggest iOS update" on their beloved device.</p>
+		<p><span class="text-primary"><b></span></b>But we all know that Apple sometimes (often) decides to not give updates to devices considered "old" just for marketing strategies, and to make people choose to buy the newer generation product. </p>
+		<p><span class="text-primary"><b></span></b>Said that, the iPod Touch 4g uses the same A4 processor that's found in the iPhone 4, and that's what makes porting iOS 7 possible. Let's get in depht and find out how!</p>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Porting iOS 7</h1>
+		<p><span class="text-primary"><b></span></b>Before getting into details, let's talk a bit about how all this become a thing:</p>
+		<p><span class="text-primary"><b></span></b>In 2013, an iPhone hacker called "winocm", released a set of tools called "ios-kexec-utils".</p>
+		<p><span class="text-primary"><b></span></b>To avoid super-technical informations, let's just say a tool included in this project, kloader, is really useful to achieve multi-booting on iOS. </p>
+		<p><span class="text-primary"><b></span></b>For a lot of time, back in the days, almost no one got interest in it (mainly because people didn't know how to use it), but recently, thanks to Coolbooter and @nyan_satan, finally it become "popular" and manually dual-booting become something easier for people to do.</p>
+		<p><span class="text-primary"><b></span></b>Dual-booting offers not only the possibility to get a fully working 2nd os in your device, but also debugging boot-args, booting diags, switchboards and, in our case: booting firmwares from other devices.</p>
+		<p><span class="text-primary"><b></span></b>Now, in the case of the iPod Touch 4g, where there is a public bootrom exploit available, we could've already done it without dualbooting, but it would've been a lot harder to do.</p>
+		<p><span class="text-primary"><b></span></b>So, since the iPhone 4 got iOS 7 and its hardware is really similar to the iPod Touch 4g one, why not trying something?</p>
+	</div>
+</div>		
+	
+<div class="container">
+	<div class="well">
+		<h1>The guy who started all this</h1>
+		<p><span class="text-primary"><b></span></b>The first guy who tried experimenting with this is the twitter user @Ralph0045 </p>
+		<p><span class="text-primary"><b></span></b>He successfully booted the iPhone3,1 (iPhone 4) iOS 7.0 firmware on an iPod4,1 (iPod Touch 4g) by using dual-boot.</p>
+		<p><span class="text-primary"><b></span></b>People (including me) got excited by this and wanted to try it, so later he released 2 ipsws to get iOS 7 without having to dualboot.</p>
+		<p><span class="text-primary"><b></span></b>But obviously the firmware wasn't perfect, because of the small hardware differences between the devices, so there were some...</p>
+	</div>
+</div>		
+
+<div class="container">
+	<div class="well">
+		<h1>...Issues</h1>
+		<p><span class="text-primary"><b></span></b>This is a list of issues that have been fixed:</p>
+		<p><span class="text-primary"><b></span></b>Device panicked after about 5 minutes of use - Fixed by @Ralph0045</p>
+		<p><span class="text-primary"><b></span></b>Wifi didn't work - Fixed by me (@albyvar25)</p>
+		<p><span class="text-primary"><b></span></b>And these are issues that are still present:</p>
+		<p><span class="text-primary"><b></span></b>Multitouch doesn't work (touch does work)</p>
+		<p><span class="text-primary"><b></span></b>Both front and rear cameras won't work</p>
+		<p><span class="text-primary"><b></span></b>No audio output</p>
+		<p><span class="text-primary"><b></span></b>No bluetooth</p>
+		<p><span class="text-primary"><b></span></b>Some sensors (like rotation and light) are broken</p>
+		<p><span class="text-primary"><b></span></b>Battery indicator is stuck at 100%</p>
+	</div>
+</div>		
+	
+<div class="container">
+	<div class="well">
+		<h1>If you want to try it...</h1>
+		<p><span class="text-primary"><b></span></b>If you decide to give it a try, keep in mind that:</p>
+		<p><span class="text-primary"><b></span></b>-this is a dirty hack so no guarantees it will be 100% stable</p>
+		<p><span class="text-primary"><b></span></b>-even if it's not that bad, remember that the iPod Touch 4g still has only 256MB ram so don't stress it much </p>
+		<p><span class="text-primary"><b></span></b>-device can't be activated so you can't use iCloud or App Store (but you will still be able to jailbreak it and use appsync + on-device ipa installer to get apps)</p>
+		<p><span class="text-primary"><b></span></b>-if you use the ipsw, it won't be untethered</p>
+		<p><span class="text-primary"><b></span></b>-some units (most likely the units produced after 2011) seems to not work</p>
+		<p><span class="text-primary"><b></span></b>-you accept the risk of "bricking" your device</p>
+		<p><span class="text-primary"><b></span></b>NOTE: you will still always be able to restore and fix it </p>
+        <p><span class="text-primary"><b></span></b>So, to get it, you can choose 2 ways: ipsw or dualboot: </p>
+	</div>
+</div>	
+	
+<div class="container">
+	<div class="well">
+		<h1>TUTORIALS</h1>
+		<p><span class="text-primary"><b></span></b>Tutorials for both methods will be available soon!</p>
+	</div>
+</div>
+	
+	
+<div class="container">
+	<div class="well">
+		<h1>Thanks to</h1>
+		<p><span class="text-primary"><b></span></b>@nyan_satan for the dualboot guide</p>
+		<p><span class="text-primary"><b></span></b>@Ralph0045, without him all this probably wouldn't have existed</p>
+		<p><span class="text-primary"><b></span></b>Me (@albyvar25) for the wifi fix </p>
+		<p><span class="text-primary"><b></span></b>Everyone else who contributed.</p>
+	</div>
+</div>	
+	
+</body>
+</html>
