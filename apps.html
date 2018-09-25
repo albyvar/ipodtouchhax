@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>iOS 7 on iPod Touch 4g</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+	<h1>Installing apps</h1>
+</div>
+
+<div class="container">
+	<div class="well">
+		<p><span class="text-primary"><b></span></b>Since the device can't be activated, you won't be able to install apps from appstore and impactor/computer. Anyway here are some alternative ways to get apps.</p>
+		
+	</div>
+</div>
+
+<div class="container">
+	<div class="well">
+		<h1>Solution #1 - Jailbreak + AppSync + IPA Installer</h1>
+		<p><span class="text-primary"><b></span></b>This is the most valid solution, but as I said in other tutorials, jailbreaking is hard and buggy.</p>
+		<p><span class="text-primary"><b></span></b>But if you got it to work, you can install AppSync Unified from cydia.angelxwind.net repo and IPA Installer from bigboss repo.</p>
+		<p><span class="text-primary"><b></span></b>Then copy an ipa on device with any tool and install it with IPA Installer</p>
+	</div>
+</div>	
+
+<div class="container">
+	<div class="well">
+		<h1>Solution #2 - Copying as system app</h1>
+		<p><span class="text-primary"><b></span></b>That's a bit tricky and not the best solution, but it will work 90% of the times</p>
+		<p><span class="text-primary"><b></span></b>Take an ipa, open it with 7zip or winrar, extract payload and get the .app folder</p>
+		<p><span class="text-primary"><b></span></b>Copy that folder in /Applications of iOS 7 system partition</p>
+		<p><span class="text-primary"><b></span></b>Set correct permissions for app executable (should be 775, check anyway)</p>
+		<p><span class="text-primary"><b></span></b>Run uicache or reboot</p>
+	</div>
+</div>		
+	
+<div class="container">
+	<div class="well">
+		<h1>Solution #3 - Signing services</h1>
+		<p><span class="text-primary"><b></span></b>Won't probably be useful for many people, but I decided to include it here since it works anyway</p>
+		<p><span class="text-primary"><b></span></b>With any signing service, sign your ipa and put it on a website so that you can install it by ota-distribution</p>
+	</div>
+</div>		
+
+	
+	
+</body>
+</html>
