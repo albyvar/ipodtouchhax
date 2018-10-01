@@ -16,7 +16,8 @@
 <div class="container">
 	<div class="well">
 		<p><span class="text-primary"><b></span></b>This way iOS 7 will be installed as a secondary os and can be booted without a computer.</p>
-		<p><span class="text-primary"><b></span></b>Also, I will provide pre-patched files so don't worry about it being hard.</p>
+		<p><span class="text-primary"><b></span></b>Also, I provide pre-patched files so don't worry about it being hard.</p>
+		<p><span class="text-primary"><b></span></b>NEW ADDONS COMING SOON (how to activate and more)</p>
 	</div>
 </div>
 	
@@ -203,8 +204,19 @@
 <div class="container">
 	<div class="well">
 		<h1>Jailbreaking</h1>
-		<p><span class="text-primary"><b></span></b>At the moment jailbreaking iOS 7 on iPod Touch 4g is really unstable</p>
-		<p><span class="text-primary"><b></span></b>I won't provide instructions for now, sorry.</p>
+		<p><span class="text-primary"><b></span></b>Thanks a lot to @JonathanSeals, developer of coolbooter</p>
+		<p><span class="text-primary"><b></span></b>First of all, download these files:</p>
+		<a class="btn btn-sm btn-default" href="https://drive.google.com/open?id=17aHoLEXsHKwf39JCxC5R9MIhO4iARtqI">cydia.tar.lzma</a>
+		<a class="btn btn-sm btn-default" href="https://drive.google.com/open?id=1JPOtSmNetpXVWHhluGbZxURqFca84pJx">jbloader.tar.lzma</a>
+		<a class="btn btn-sm btn-default" href="https://drive.google.com/open?id=1C6nWXlGFMxglawjXaDMqFaDaJRyhGK23">kernelcache.zip</a>
+		<p><span class="text-primary"><b></span></b>Mount partitions</p>
+		<p><span class="text-primary"><b></span></b>mount_hfs /dev/disk0s1s3 /mnt1 && mount_hfs /dev/disk0s1s4 /mnt1/private/var</p>
+		<p><span class="text-primary"><b></span></b>Extract kernelcache.zip and replace the previous kernelcache file in /mnt1 </p>
+		<p><span class="text-primary"><b></span></b>Put cydia.tar.lzma and jbloader.tar.lzma in /mnt1</p>
+		<p><span class="text-primary"><b></span></b>From ssh:</p>
+		<p><span class="text-primary"><b></span></b>tar --lzma -xvf cydia.tar.lzma</p>
+		<p><span class="text-primary"><b></span></b>tar --lzma -xvf jbloader.tar.lzma</p>
+		<p><span class="text-primary"><b></span></b>Done. You can now unmount filesystems if you want</p>
 	</div>
 </div>	
 	
